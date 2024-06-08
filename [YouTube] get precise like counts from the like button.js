@@ -11,33 +11,49 @@
 // ==/UserScript==
 
 // internal settings (設定)
-let waitTimerMs = 9000; //  this is necessary because the page might still be loading in the backend
-let language = ""; //     "en" - english / "ja" - japanese
-let alertPopup = false; //  make it display as a popup
+let waitTimerMs = 6000; //        this is necessary because the page might still be loading in the backend
+let language = "en"; //           "en" - english / "ja" - japanese
+let DisplayAsAPopup = false; //   display the result as a alert popup
 
 
 
 // ================= MAIN =================
+console.log("getting precise like counts...");
+var PotentialLikeCount = document.querySelector("like-button-view-model > toggle-button-view-model > button-view-model > button").ariaLabel;
+
+var NewLikeCount; // empty variable
+var FinalLikeCountAsInt; // empty variable
+var DisplayLikeCountsAsString; // empty variable
+
+// language strings (they are placed here so it's modular than hardcoding them inside)
+var likesString = "likes"; // english
+var kouhyoukaString = "の高評価"; // 日本語
 
 setTimeout(function(){
-	console.log("getting precise like counts...");
-	var potentialLikeCount = document.querySelector("like-button-view-model > toggle-button-view-model > button-view-model > button").ariaLabel;
-	var strippedLikeCount;
-	
 	switch(language) {
 		case "en":
-			strippedLikeCount = potentialLikeCount.slice(27, -13);
+			NewLikeCount = PotentialLikeCount.replace(/\D/g, '');
+			FinalLikeCountAsInt = parseInt(NewLikeCount);
+
+			DisplayLikeCountsAsString = "int: " + FinalLikeCountAsInt + "\n" + FinalLikeCountAsInt.toLocaleString() + " " + likesString;
 			break;
 		case "ja":
-			strippedLikeCount = potentialLikeCount.slice(2, 9);
+			NewLikeCount = PotentialLikeCount.replace(/\D/g, '');
+			FinalLikeCountAsInt = parseInt(NewLikeCount);
+
+			DisplayLikeCountsAsString = "int: " + FinalLikeCountAsInt + "\n" + FinalLikeCountAsInt.toLocaleString() + " " + kouhyoukaString;
 			break;
+		// defaults to english as a fallback
 		default:
-			strippedLikeCount = potentialLikeCount.slice(27, -13);
+			NewLikeCount = PotentialLikeCount.replace(/\D/g, '');
+			FinalLikeCountAsInt = parseInt(NewLikeCount);
+
+			DisplayLikeCountsAsString = FinalLikeCountAsInt.toLocaleString() + " " + likesString;
 	}
 
-	console.log("Like counts: " + strippedLikeCount);
+	console.log(DisplayLikeCountsAsString);
 
-	if (alertPopup == true) {
-		alert("Like counts: " + strippedLikeCount)
+	if (DisplayAsAPopup == true) {
+		alert(DisplayLikeCountsAsString);
 	}
 }, waitTimerMs);
