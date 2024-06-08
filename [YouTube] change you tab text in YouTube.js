@@ -6,6 +6,8 @@
 // @author       John Patrick Adem
 // @match        *://*.youtube.com/*
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=youtube.com
+// @downloadURL  https://github.com/jpa102/ytscripts/raw/main/%5BYouTube%5D%20change%20you%20tab%20text%20in%20YouTube.js
+// @updateURL    https://github.com/jpa102/ytscripts/raw/main/%5BYouTube%5D%20change%20you%20tab%20text%20in%20YouTube.js
 // @grant        none
 // @run-at       document-end
 // ==/UserScript==
