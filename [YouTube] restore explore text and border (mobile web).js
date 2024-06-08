@@ -6,6 +6,8 @@
 // @author       John Patrick Adem
 // @match        *://*m.youtube.com/*
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=youtube.com
+// @downloadURL  https://github.com/jpa102/ytscripts/raw/main/%5BYouTube%5D%20restore%20explore%20text%20and%20border%20(mobile%20web).js
+// @updateURL    https://github.com/jpa102/ytscripts/raw/main/%5BYouTube%5D%20restore%20explore%20text%20and%20border%20(mobile%20web).js
 // @grant        none
 // ==/UserScript==
 
