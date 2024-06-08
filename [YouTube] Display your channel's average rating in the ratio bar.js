@@ -6,6 +6,8 @@
 // @author       John Patrick Adem
 // @match        *://*.youtube.com/*
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=youtube.com
+// @downloadURL  https://github.com/jpa102/ytscripts/raw/main/%5BYouTube%5D%20Display%20your%20channel's%20average%20rating%20in%20the%20ratio%20bar.js
+// @updateURL    https://github.com/jpa102/ytscripts/raw/main/%5BYouTube%5D%20Display%20your%20channel's%20average%20rating%20in%20the%20ratio%20bar.js
 // @connect      youtube.com
 // @grant        GM_addStyle
 // @run-at       document-end
