@@ -6,6 +6,8 @@
 // @author       John Patrick Adem
 // @match        *://*.youtube.com/*
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=youtube.com
+// @downloadURL  https://github.com/jpa102/ytscripts/raw/main/%5BYouTube%5D%20get%20precise%20like%20counts%20from%20the%20like%20button.js
+// @updateURL    https://github.com/jpa102/ytscripts/raw/main/%5BYouTube%5D%20get%20precise%20like%20counts%20from%20the%20like%20button.js
 // @connect      youtube.com
 // @run-at       document-end
 // ==/UserScript==
