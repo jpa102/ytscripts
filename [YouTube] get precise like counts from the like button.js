@@ -1,7 +1,7 @@
-﻿// ==UserScript==
+// ==UserScript==
 // @name         [YouTube] get precise like count from the like button
 // @namespace    http://tampermonkey.net/
-// @version      1.0
+// @version      1.1
 // @description  small userscript to get the exact like counts, nothing too special here
 // @author       John Patrick Adem
 // @match        *://*.youtube.com/*
@@ -15,14 +15,14 @@
 // internal settings (設定)
 let waitTimerMs = 6000; //        this is necessary because the page might still be loading in the backend
 let language = "en"; //           "en" - english / "ja" - japanese
-let DisplayAsAPopup = false; //   display the result as a alert popup
+let DisplayAsAPopup = true; //   display the result as a alert popup
 
 
 
 // ================= MAIN =================
 console.log("getting precise like counts...");
-var PotentialLikeCount = document.querySelector("like-button-view-model > toggle-button-view-model > button-view-model > button").ariaLabel;
 
+var PotentialLikeCount; // empty variable
 var NewLikeCount; // empty variable
 var FinalLikeCountAsInt; // empty variable
 var DisplayLikeCountsAsString; // empty variable
@@ -34,12 +34,14 @@ var kouhyoukaString = "の高評価"; // 日本語
 setTimeout(function(){
 	switch(language) {
 		case "en":
+			PotentialLikeCount = document.querySelector("like-button-view-model > toggle-button-view-model > button-view-model > button").ariaLabel;
 			NewLikeCount = PotentialLikeCount.replace(/\D/g, '');
 			FinalLikeCountAsInt = parseInt(NewLikeCount);
 
 			DisplayLikeCountsAsString = "int: " + FinalLikeCountAsInt + "\n" + FinalLikeCountAsInt.toLocaleString() + " " + likesString;
 			break;
 		case "ja":
+			PotentialLikeCount = document.querySelector("like-button-view-model > toggle-button-view-model > button-view-model > button").ariaLabel;
 			NewLikeCount = PotentialLikeCount.replace(/\D/g, '');
 			FinalLikeCountAsInt = parseInt(NewLikeCount);
 
@@ -47,6 +49,7 @@ setTimeout(function(){
 			break;
 		// defaults to english as a fallback
 		default:
+			PotentialLikeCount = document.querySelector("like-button-view-model > toggle-button-view-model > button-view-model > button").ariaLabel;
 			NewLikeCount = PotentialLikeCount.replace(/\D/g, '');
 			FinalLikeCountAsInt = parseInt(NewLikeCount);
 
