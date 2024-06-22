@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         [YouTube] like and dislike buttons - padding patch
 // @namespace    http://tampermonkey.net/
-// @version      1.1
+// @version      1.2
 // @description  simple patch to make the like and dislike buttons look "symmetrical" to each other, this is noticeable when you use the Return YouTube Dislike addon
 // @author       John Patrick Adem
 // @match        *://*.youtube.com/*
@@ -9,7 +9,6 @@
 // @downloadURL  https://github.com/jpa102/ytscripts/raw/main/%5BYouTube%5D%20like%20and%20dislike%20buttons%20-%20padding%20patch.js
 // @updateURL    https://github.com/jpa102/ytscripts/raw/main/%5BYouTube%5D%20like%20and%20dislike%20buttons%20-%20padding%20patch.js
 // @connect      youtube.com
-// @grant        GM_addStyle
 // @run-at       document-end
 // ==/UserScript==
 
@@ -20,18 +19,34 @@ var ReturnYouTubeDislikeCompatibility = false; // make this userscript compatibl
 	style
 */
 
-(typeof GM_addStyle != "undefined"
-	? GM_addStyle
-	: (styles) => {
-		let styleNode = document.createElement("style");
-		styleNode.type = "text/css";
-		styleNode.innerText = styles;
-		document.head.appendChild(styleNode);
-	})(`
-		.like-and-dislike-padding-patch {
-			padding-left: 20px !important;
-		}
-`);
+document.querySelector("head").insertAdjacentHTML(
+	"afterbegin",
+	`
+		<style id="like-dislike-button-padding-patch-css">
+			.like-and-dislike-padding-patch {
+				padding-left: 20px !important;
+			}
+		</style>
+	`
+);
+
+if (ReturnYouTubeDislikeCompatibility == true) {
+	document.querySelector("head").insertAdjacentHTML(
+		"afterbegin",
+		`
+			<style id="like-dislike-button-padding-patch-css">
+				.like-and-dislike-padding-patch {
+					padding-left: 20px !important;
+				}
+				
+				/* this also patches the padding-bottom of the menu buttons container */
+				#top-row {
+					padding-bottom: 6px !important; /* originally, this was set in 10px, making the ratio bar appear to be "floating" away */
+				}
+			</style>
+		`
+	);
+}
 
 /*
 	MAIN
@@ -65,8 +80,5 @@ if (ReturnYouTubeDislikeCompatibility == true) {
 			
 			document.querySelector(".ryd-tooltip").style = "width: " + newratiobarpx + "px";
 		}
-		
-		// this also patches the padding-bottom of the menu buttons container
-		document.querySelector("#top-row").style = "border-bottom: 1px solid var(--yt-spec-10-percent-layer); padding-bottom: 6px;"; // originally, this was 10px, making the ratio bar appear to be "floating" away
 	}, waitTimeMs);
 }
