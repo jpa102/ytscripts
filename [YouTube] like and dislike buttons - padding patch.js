@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         [YouTube] like and dislike buttons - padding patch
 // @namespace    http://tampermonkey.net/
-// @version      1.21
+// @version      1.22
 // @description  simple patch to make the like and dislike buttons look "symmetrical" to each other, this is noticeable when you use the Return YouTube Dislike addon
 // @author       John Patrick Adem
 // @match        *://*.youtube.com/*
@@ -12,24 +12,13 @@
 // @run-at       document-end
 // ==/UserScript==
 
-var waitTimeMs = 3000; // default wait time is 3 seconds (in milliseconds)
+var waitTimeMs = 5200; // default wait time is 5.2 seconds (in milliseconds)
 var ReturnYouTubeDislikeCompatibility = false; // make this userscript compatible with Return YouTube Dislike - Extension / UserScript verrsions
-var repeatedApply = false; // EXPERIMENTAL SETTING! only enable this if you want the patch to be applied while navigating through different videos
+var repeatedApply = false; // only enable this if you want the patch to be applied while navigating through different videos natively
 
 /*
 	style
 */
-
-document.querySelector("head").insertAdjacentHTML(
-	"afterbegin",
-	`
-		<style id="like-dislike-button-padding-patch-css">
-			.like-and-dislike-padding-patch {
-				padding-left: 20px !important;
-			}
-		</style>
-	`
-);
 
 if (ReturnYouTubeDislikeCompatibility == true) {
 	document.querySelector("head").insertAdjacentHTML(
@@ -43,6 +32,18 @@ if (ReturnYouTubeDislikeCompatibility == true) {
 				/* this also patches the padding-bottom of the menu buttons container */
 				#top-row {
 					padding-bottom: 6px !important; /* originally, this was set in 10px, making the ratio bar appear to be "floating" away */
+				}
+			</style>
+		`
+	);
+} else {
+	// default operation
+	document.querySelector("head").insertAdjacentHTML(
+		"afterbegin",
+		`
+			<style id="like-dislike-button-padding-patch-css">
+				.like-and-dislike-padding-patch {
+					padding-left: 20px !important;
 				}
 			</style>
 		`
@@ -82,7 +83,7 @@ function RYDCompatibilityPatch() {
 	}
 }
 
-// highly experimental, this may cause bugs or not work at all
+// remember, only set it to true if you want the patch to be applied while navigating through different videos
 if (repeatedApply == true) {
 	setInterval(function() {
 		setTimeout(addPaddingButtonsPatch, waitTimeMs);
@@ -92,7 +93,7 @@ if (repeatedApply == true) {
 				RYDCompatibilityPatch();
 			}, waitTimeMs);
 		}
-	}, 2000); // hardcoded value, 2000 is 2 seconds in milliseconds
+	}, waitTimeMs); // uses the same wait time value as in the config
 } else {
 	// default operation
 	setTimeout(addPaddingButtonsPatch, waitTimeMs);
