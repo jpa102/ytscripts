@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         [YouTube] like and dislike buttons - padding patch
 // @namespace    http://tampermonkey.net/
-// @version      1.22
+// @version      1.23
 // @description  simple patch to make the like and dislike buttons look "symmetrical" to each other, this is noticeable when you use the Return YouTube Dislike addon
 // @author       John Patrick Adem
 // @match        *://*.youtube.com/*
@@ -16,6 +16,11 @@ var waitTimeMs = 5200; // default wait time is 5.2 seconds (in milliseconds)
 var ReturnYouTubeDislikeCompatibility = false; // make this userscript compatible with Return YouTube Dislike - Extension / UserScript verrsions
 var repeatedApply = false; // only enable this if you want the patch to be applied while navigating through different videos natively
 
+var paddingLeftPxSize = 20; // the px for the padding-left css; default is 20px
+var paddingRightPxSize = 15; // the px for the padding-right css; default is 15px
+
+
+
 /*
 	style
 */
@@ -26,7 +31,8 @@ if (ReturnYouTubeDislikeCompatibility == true) {
 		`
 			<style id="like-dislike-button-padding-patch-css">
 				.like-and-dislike-padding-patch {
-					padding-left: 20px !important;
+					padding-left: ${paddingLeftPxSize}px !important;
+					padding-right: ${paddingRightPxSize}px !important;
 				}
 				
 				/* this also patches the padding-bottom of the menu buttons container */
@@ -43,12 +49,15 @@ if (ReturnYouTubeDislikeCompatibility == true) {
 		`
 			<style id="like-dislike-button-padding-patch-css">
 				.like-and-dislike-padding-patch {
-					padding-left: 20px !important;
+					padding-left: ${paddingLeftPxSize}px !important;
+					padding-right: ${paddingRightPxSize}px !important;
 				}
 			</style>
 		`
 	);
 }
+
+
 
 /*
 	MAIN
