@@ -32,9 +32,7 @@ let HideDownloadButton = true; // Download button - true by default
 let HideShareButton = false; //   Share button
 let HideClipButton = false; //    Clip button
 let HideThanksButton = false; //  Super Thanks button
-let HideSaveButton = false; //    Save button
-
-const waitTimeMs = 4000; //       Waiting time to apply the patch, 4000 milliseconds or 4 seconds by default  
+let HideSaveButton = false; //    Save button 
 
 
 
@@ -44,60 +42,58 @@ const waitTimeMs = 4000; //       Waiting time to apply the patch, 4000 millisec
 	==================================
 */
 
-setTimeout(function() {
-	// create a container for the styles
-	document.querySelector("head").insertAdjacentHTML(
-		"afterbegin",
+// create a container for the styles
+document.querySelector("head").insertAdjacentHTML(
+	"afterbegin",
+	`
+		<div id="hide-download-button-js-container">
+			
+		</div>
+	`
+);
+
+// download button
+if (HideDownloadButton == true) {
+	document.querySelector("#hide-download-button-js-container").insertAdjacentHTML(
+		"beforeend",
 		`
-			<div id="hide-download-button-js-container">
-				
-			</div>
+			<style id="hide-download-button">
+				ytd-download-button-renderer {
+					display: none;
+				}
+			</style>
 		`
 	);
-	
-	// download button
-	if (HideDownloadButton == true) {
-		document.querySelector("#hide-download-button-js-container").insertAdjacentHTML(
-			"beforeend",
-			`
-				<style id="hide-download-button">
-					ytd-download-button-renderer {
-						display: none;
-					}
-				</style>
-			`
-		);
-	}
-	
-	// share button
-	if (HideShareButton == true) {
-		document.querySelector("#hide-download-button-js-container").insertAdjacentHTML(
-			"beforeend",
-			`
-				<style id="hide-share-button">
-					#top-level-buttons-computed > yt-button-view-model {
-						display: none;
-					}
-				</style>
-			`
-		);
-	}
-	
-	// todo: clip button
-	
-	// todo: thanks button
-	
-	// save button
-	if (HideSaveButton == true) {
-		document.querySelector("#hide-download-button-js-container").insertAdjacentHTML(
-			"beforeend",
-			`
-				<style id="hide-save-button">
-					#flexible-item-buttons > yt-button-view-model {
-						display: none;
-					}
-				</style>
-			`
-		);
-	}
-}, waitTimeMs);
+}
+
+// share button
+if (HideShareButton == true) {
+	document.querySelector("#hide-download-button-js-container").insertAdjacentHTML(
+		"beforeend",
+		`
+			<style id="hide-share-button">
+				#top-level-buttons-computed > yt-button-view-model {
+					display: none;
+				}
+			</style>
+		`
+	);
+}
+
+// todo: clip button
+
+// todo: thanks button
+
+// save button
+if (HideSaveButton == true) {
+	document.querySelector("#hide-download-button-js-container").insertAdjacentHTML(
+		"beforeend",
+		`
+			<style id="hide-save-button">
+				#flexible-item-buttons > yt-button-view-model {
+					display: none;
+				}
+			</style>
+		`
+	);
+}
