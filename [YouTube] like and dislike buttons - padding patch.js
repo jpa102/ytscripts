@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         [YouTube] like and dislike buttons - padding patch
 // @namespace    http://tampermonkey.net/
-// @version      1.23
+// @version      1.3
 // @description  simple patch to make the like and dislike buttons look "symmetrical" to each other, this is noticeable when you use the Return YouTube Dislike addon
 // @author       John Patrick Adem
 // @match        *://*.youtube.com/*
@@ -13,7 +13,7 @@
 // ==/UserScript==
 
 var waitTimeMs = 5200; // default wait time is 5.2 seconds (in milliseconds)
-var ReturnYouTubeDislikeCompatibility = false; // make this userscript compatible with Return YouTube Dislike - Extension / UserScript verrsions
+var ReturnYouTubeDislikeCompatibility = false; // make this userscript compatible with Return YouTube Dislike - Extension / UserScript versions
 var repeatedApply = false; // only enable this if you want the patch to be applied while navigating through different videos natively
 
 var paddingLeftPxSize = 20; // the px for the padding-left css; default is 20px
@@ -70,6 +70,12 @@ var newratiobarpx;
 function addPaddingButtonsPatch() {
 	document.querySelector("like-button-view-model > toggle-button-view-model > button-view-model > button").classList.add("like-and-dislike-padding-patch"); // like button
 	document.querySelector("dislike-button-view-model > toggle-button-view-model > button-view-model > button").classList.add("like-and-dislike-padding-patch"); // dislike button
+	
+	// if the user has the experimental watch layout (2024 ui)
+	if (document.querySelector("ytd-watch-grid") != null) {
+		document.querySelector("#bottom-actions > #actions > #actions-inner > #menu > ytd-menu-renderer > #top-level-buttons-computed > segmented-like-dislike-button-view-model > yt-smartimation > .smartimation__content > .YtSegmentedLikeDislikeButtonViewModelSegmentedButtonsWrapper > like-button-view-model > toggle-button-view-model > button-view-model > button").classList.add("like-and-dislike-padding-patch"); // like button
+		document.querySelector("#bottom-actions > #actions > #actions-inner > #menu > ytd-menu-renderer > #top-level-buttons-computed > segmented-like-dislike-button-view-model > yt-smartimation > .smartimation__content > .YtSegmentedLikeDislikeButtonViewModelSegmentedButtonsWrapper > dislike-button-view-model > toggle-button-view-model > button-view-model > button").classList.add("like-and-dislike-padding-patch"); // dislike button
+	}
 }
 
 function RYDCompatibilityPatch() {
@@ -89,6 +95,26 @@ function RYDCompatibilityPatch() {
 		newratiobarpx = likebuttonpx + dislikebuttonpx;
 		
 		document.querySelector(".ryd-tooltip").style = "width: " + newratiobarpx + "px";
+	}
+	
+	// if the user has the experimental watch layout (2024 ui)
+	if (document.querySelector("ytd-watch-grid") != null) {
+		if (document.querySelector(".ryd-tooltip.ryd-tooltip-new-design") != null) {
+			likebuttonpx = document.querySelector("#bottom-actions > #actions > #actions-inner > #menu > ytd-menu-renderer > #top-level-buttons-computed > segmented-like-dislike-button-view-model > yt-smartimation > .smartimation__content > .YtSegmentedLikeDislikeButtonViewModelSegmentedButtonsWrapper > like-button-view-model").clientWidth;
+			dislikebuttonpx = document.querySelector("#bottom-actions > #actions > #actions-inner > #menu > ytd-menu-renderer > #top-level-buttons-computed > segmented-like-dislike-button-view-model > yt-smartimation > .smartimation__content > .YtSegmentedLikeDislikeButtonViewModelSegmentedButtonsWrapper > dislike-button-view-model").clientWidth;
+			newratiobarpx = likebuttonpx + dislikebuttonpx;
+			
+			document.querySelector(".ryd-tooltip.ryd-tooltip-new-design").style = "width: " + newratiobarpx + "px";
+		}
+		
+		// check if the ratio bar from "Return YouTube Dislike - UserScript" exists in the HTML
+		if (document.querySelector(".ryd-tooltip") != null) {
+			likebuttonpx = document.querySelector("#bottom-actions > #actions > #actions-inner > #menu > ytd-menu-renderer > #top-level-buttons-computed > segmented-like-dislike-button-view-model > yt-smartimation > .smartimation__content > .YtSegmentedLikeDislikeButtonViewModelSegmentedButtonsWrapper > like-button-view-model").clientWidth;
+			dislikebuttonpx = document.querySelector("#bottom-actions > #actions > #actions-inner > #menu > ytd-menu-renderer > #top-level-buttons-computed > segmented-like-dislike-button-view-model > yt-smartimation > .smartimation__content > .YtSegmentedLikeDislikeButtonViewModelSegmentedButtonsWrapper > dislike-button-view-model").clientWidth;
+			newratiobarpx = likebuttonpx + dislikebuttonpx;
+			
+			document.querySelector(".ryd-tooltip").style = "width: " + newratiobarpx + "px";
+		}
 	}
 }
 
