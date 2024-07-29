@@ -1,4 +1,4 @@
-﻿// ==UserScript==
+// ==UserScript==
 // @name         [YouTube] y2mate,is downloader - download button overrider
 // @namespace    http://tampermonkey.net/
 // @version      1.0
@@ -38,10 +38,6 @@ function getVideoId() {
 function downloadButton() {
 	window.open("https://www.youtubepi.com/watch?v=" + getVideoId());
 	
-	if (document.querySelector("ytd-download-button-renderer > ytd-button-renderer > button").hasAttribute("disabled") == true) {
-		document.querySelector("ytd-download-button-renderer > ytd-button-renderer > button").removeAttribute("disabled");
-	}
-	
 	setTimeout(function() {
 		if (document.querySelector("ytd-download-button-renderer") != null && document.querySelector("ytd-download-button-renderer").hasAttribute("is-hidden") == true) {
 			// console.log("download button is hidden, trying to unhide...");
@@ -54,6 +50,11 @@ function downloadButton() {
 }
 
 setTimeout(function() {
+	// check if the download button is marked as disabled
+	if (document.querySelector("ytd-download-button-renderer > ytd-button-renderer > button").hasAttribute("disabled") == true) {
+		document.querySelector("ytd-download-button-renderer > ytd-button-renderer > button").removeAttribute("disabled");
+	}
+	
 	document.querySelector("ytd-download-button-renderer > ytd-button-renderer").addEventListener("click", downloadButton);
 	// console.log("[SUCCESS] overriden the download button! now you can download the current video...");
 }, waitTimeMs);
