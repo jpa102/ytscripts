@@ -6,8 +6,8 @@
 // @author       John Patrick Adem
 // @match        *://*.youtube.com/*
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=youtube.com
-// @downloadURL  https://github.com/jpa102/ytscripts/raw/main/%5BYouTube%5D%20Hide%20the%20Download%20button.js
-// @updateURL    https://github.com/jpa102/ytscripts/raw/main/%5BYouTube%5D%20Hide%20the%20Download%20button.js
+// @downloadURL  https://github.com/jpa102/ytscripts/raw/main/%5BYouTube%5D%20y2mate.is%20downloader%20-%20download%20button%20overrider.js
+// @updateURL    https://github.com/jpa102/ytscripts/raw/main/%5BYouTube%5D%20y2mate.is%20downloader%20-%20download%20button%20overrider.js
 // @connect      youtube.com
 // @run-at       document-end
 // ==/UserScript==
