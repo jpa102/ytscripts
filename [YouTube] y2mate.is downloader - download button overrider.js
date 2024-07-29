@@ -15,6 +15,7 @@
 // script settings 「スクリプトの設定」
 var waitTimeMs = 5500; // the wait time for this userscript to load, default is 5.5 seconds (5500 milliseconds)
 var DownloaderSite = "https://www.youtubepi.com/watch?v="; // redirects to y2mate.is, this is stated as a tip to quickly download from their site
+var oldDownloadButton = false; // if it doesn't work, setting this to true checks if the download button comes from a "legacy" version of the watch page (old html elements)
 
 
 
@@ -51,8 +52,14 @@ function downloadButton() {
 
 setTimeout(function() {
 	// check if the download button is marked as disabled
-	if (document.querySelector("ytd-download-button-renderer > ytd-button-renderer > button").hasAttribute("disabled") == true) {
-		document.querySelector("ytd-download-button-renderer > ytd-button-renderer > button").removeAttribute("disabled");
+	if (oldDownloadButton == true) {
+		if (document.querySelector("ytd-download-button-renderer > ytd-button-renderer > button").hasAttribute("disabled") == true) {
+			document.querySelector("ytd-download-button-renderer > ytd-button-renderer > button").removeAttribute("disabled");
+		}
+	} else {
+		if (document.querySelector("ytd-download-button-renderer > ytd-button-renderer > yt-button-shape > button").hasAttribute("disabled") == true) {
+			document.querySelector("ytd-download-button-renderer > ytd-button-renderer > button").removeAttribute("disabled");
+		}
 	}
 	
 	document.querySelector("ytd-download-button-renderer > ytd-button-renderer").addEventListener("click", downloadButton);
