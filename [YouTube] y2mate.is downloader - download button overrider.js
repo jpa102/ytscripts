@@ -58,7 +58,7 @@ setTimeout(function() {
 		}
 	} else {
 		if (document.querySelector("ytd-download-button-renderer > ytd-button-renderer > yt-button-shape > button").hasAttribute("disabled") == true) {
-			document.querySelector("ytd-download-button-renderer > ytd-button-renderer > button").removeAttribute("disabled");
+			document.querySelector("ytd-download-button-renderer > ytd-button-renderer > yt-button-shape > button").removeAttribute("disabled");
 		}
 	}
 	
