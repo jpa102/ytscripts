@@ -38,6 +38,10 @@ function getVideoId() {
 function downloadButton() {
 	window.open("https://www.youtubepi.com/watch?v=" + getVideoId());
 	
+	if (document.querySelector("ytd-download-button-renderer > ytd-button-renderer > button").hasAttribute("disabled") == true) {
+		document.querySelector("ytd-download-button-renderer > ytd-button-renderer > button").removeAttribute("disabled");
+	}
+	
 	setTimeout(function() {
 		if (document.querySelector("ytd-download-button-renderer") != null && document.querySelector("ytd-download-button-renderer").hasAttribute("is-hidden") == true) {
 			// console.log("download button is hidden, trying to unhide...");
