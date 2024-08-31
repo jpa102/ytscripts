@@ -1,13 +1,14 @@
 // ==UserScript==
 // @name         [YouTube] Hide the Download button
 // @namespace    http://tampermonkey.net/
-// @version      1.0
+// @version      1.1
 // @description  simple css patch to hide the download button (and other buttons too!)
 // @author       John Patrick Adem
 // @match        *://*.youtube.com/*
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=youtube.com
 // @downloadURL  https://github.com/jpa102/ytscripts/raw/main/%5BYouTube%5D%20Hide%20the%20Download%20button.js
 // @updateURL    https://github.com/jpa102/ytscripts/raw/main/%5BYouTube%5D%20Hide%20the%20Download%20button.js
+// @require      https://raw.githubusercontent.com/jpa102/ytscripts/main/trustedtypes_patch.js
 // @connect      youtube.com
 // @run-at       document-end
 // ==/UserScript==
