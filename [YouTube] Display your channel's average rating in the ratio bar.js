@@ -1,13 +1,14 @@
 // ==UserScript==
 // @name         Display your channel's average rating in the ratio bar
 // @namespace    http://tampermonkey.net/
-// @version      1.3
+// @version      1.4
 // @description  Not much going on, but i made this to display the channel's average rating in the ratio bar
 // @author       John Patrick Adem
 // @match        *://*.youtube.com/*
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=youtube.com
 // @downloadURL  https://github.com/jpa102/ytscripts/raw/main/%5BYouTube%5D%20Display%20your%20channel's%20average%20rating%20in%20the%20ratio%20bar.js
 // @updateURL    https://github.com/jpa102/ytscripts/raw/main/%5BYouTube%5D%20Display%20your%20channel's%20average%20rating%20in%20the%20ratio%20bar.js
+// @require      https://raw.githubusercontent.com/jpa102/ytscripts/main/trustedtypes_patch.js
 // @connect      youtube.com
 // @grant        GM_addStyle
 // @run-at       document-end
