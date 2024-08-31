@@ -1,7 +1,7 @@
 ﻿// ==UserScript==
 // @name         [YouTube] action buttons and channel info patch
 // @namespace    http://tampermonkey.net/
-// @version      1.0
+// @version      1.1
 // @description  simple patch to make the action buttons and channel info "separate" to each other (not combined)
 // @author       John Patrick Adem
 // @match        *://*.youtube.com/*
