@@ -1,9 +1,12 @@
 // ==UserScript==
 // @name         [YouTube] m.youtube.com - add 'Open app' intent button or auto execute
 // @namespace    http://tampermonkey.net/
-// @version      1.0
+// @version      1.0.1
 // @description  don't like the 'Open app' opening the original youtube app? now you can change that! it also lets you choose if you want it to be automatically open or manually add the button for you to tap later
 // @author       John Patrick Adem
+// @license      Unlicense
+// @downloadURL  https://raw.githubusercontent.com/jpa102/ytscripts/main/%5BYouTube%5D%20m.youtube.com%20-%20add%20'Open%20app'%20intent%20button.js
+// @updateURL    https://raw.githubusercontent.com/jpa102/ytscripts/main/%5BYouTube%5D%20m.youtube.com%20-%20add%20'Open%20app'%20intent%20button.js
 // @match        m.youtube.com/*
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=youtube.com
 // @run-at       document-start
@@ -13,6 +16,7 @@ var waitTimeMs = 5000; //                                wait time for the page 
 var redirPackageName = "org.schabi.newpipe"; //          default is NewPipe
 var openAppButtonType = "delhi"; //                      default is delhi style button, other is thin style button
 var executionType = "manual"; //                         default is manual, other is auto which will automatically redirect to your desired app
+var executionwaitTimeMs = 100; //                        wait time to auto redirect to the desired app
 
 
 
@@ -148,9 +152,11 @@ class injectCustomIntentLink {
 
 // ======================== [MAIN] ========================
 if (executionType == "auto") {
-	let open_app_auto = document.createElement("a");
-	open_app_auto.href = `intent://m.youtube.com/watch?v=${document.querySelector("meta[itemprop='identifier']").content}&feature=mweb_c3_open_app_11268432&itc_campaign=mweb_c3_open_app_11268432&redirect_app_store_ios=1&app=desktop#Intent;package=${redirPackageName};scheme=vnd.youtube;launchFlags=268435456;end`;
-	open_app_auto.click();
+	setTimeout(() => {
+		let open_app_auto = document.createElement("a");
+		open_app_auto.href = `intent://m.youtube.com/watch?v=${document.querySelector("meta[itemprop='identifier']").content}&feature=mweb_c3_open_app_11268432&itc_campaign=mweb_c3_open_app_11268432&redirect_app_store_ios=1&app=desktop#Intent;package=${redirPackageName};scheme=vnd.youtube;launchFlags=268435456;end`;
+		open_app_auto.click();
+	}, executionwaitTimeMs);
 } else {
 	setTimeout(() => {
 		// if signed out but contains an 'Open app' button at the topbar
