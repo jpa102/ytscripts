@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         [YouTube] m.youtube.com - add 'Open app' intent button or auto execute
 // @namespace    http://tampermonkey.net/
-// @version      1.0.1
+// @version      1.0.2
 // @description  don't like the 'Open app' opening the original youtube app? now you can change that! it also lets you choose if you want it to be automatically open or manually add the button for you to tap later
 // @author       John Patrick Adem
 // @license      Unlicense
@@ -25,6 +25,8 @@ var executionwaitTimeMs = 100; //                        wait time to auto redir
 
 	the reason for this is that it has to be constructed manually
 	so the button can have a responsive look when tapped, just like any other buttons
+
+	todo: implement an event listener for every page change (example is switching to another video)
 */
 function openAppButtonCreator(buttonType) {
 	if (buttonType == "delhi") {
@@ -37,7 +39,7 @@ function openAppButtonCreator(buttonType) {
 		let newopenappbutton = actionbarbuttons.children[2];
 
 		let openappbutton_button = document.createElement("button");
-		openappbutton_button.setAttribute("class", "yt-spec-button-shape-next yt-spec-button-shape-next--tonal yt-spec-button-shape-next--mono yt-spec-button-shape-next--size-m yt-spec-button-shape-next--icon-leading");
+		openappbutton_button.setAttribute("class", "ytSpecButtonShapeNextHost ytSpecButtonShapeNextTonal ytSpecButtonShapeNextMono ytSpecButtonShapeNextSizeM ytSpecButtonShapeNextIconLeading ytSpecButtonShapeNextEnableBackdropFilterExperiment");
 		openappbutton_button.setAttribute("title", unsafeWindow.ytcfg.msgs.OPEN_APP);
 		openappbutton_button.setAttribute("aria-label", unsafeWindow.ytcfg.msgs.OPEN_APP);
 		openappbutton_button.setAttribute("aria-disabled", "false");
@@ -46,7 +48,7 @@ function openAppButtonCreator(buttonType) {
 
 		let openappbutton_icon = document.createElement("div");
 		openappbutton_icon.setAttribute("aria-hidden", "true");
-		openappbutton_icon.setAttribute("class", "yt-spec-button-shape-next__icon");
+		openappbutton_icon.setAttribute("class", "ytSpecButtonShapeNextIcon");
 		openappbutton_icon.innerHTML = `
 			<c3-icon fill-icon="false" style="width: 24px; height: 24px;">
 				<span class="yt-icon-shape ytSpecIconShapeHost">
@@ -61,13 +63,13 @@ function openAppButtonCreator(buttonType) {
 		document.querySelector("#injected-open-app-button > button").insertBefore(openappbutton_icon, document.querySelector("#injected-open-app-button > button").children[0]);
 
 		let openappbutton_text = document.createElement("div");
-		openappbutton_text.setAttribute("class", "yt-spec-button-shape-next__button-text-content");
+		openappbutton_text.setAttribute("class", "ytSpecButtonShapeNextButtonTextContent");
 		openappbutton_text.innerText = unsafeWindow.ytcfg.msgs.OPEN_APP;
 		document.querySelector("#injected-open-app-button > button").insertBefore(openappbutton_text, document.querySelector("#injected-open-app-button > button").children[1]);
 
 		let openappbutton_feedbackcontainer = document.createElement("yt-touch-feedback-shape");
 		openappbutton_feedbackcontainer.setAttribute("aria-hidden", "true");
-		openappbutton_feedbackcontainer.setAttribute("class", "yt-spec-touch-feedback-shape yt-spec-touch-feedback-shape--touch-response");
+		openappbutton_feedbackcontainer.setAttribute("class", "ytSpecTouchFeedbackShapeHost ytSpecTouchFeedbackShapeTouchResponse");
 		document.querySelector("#injected-open-app-button > button").insertBefore(openappbutton_feedbackcontainer, document.querySelector("#injected-open-app-button > button").children[2]);
 
 		let openappbutton_feedbackstroke = document.createElement("div");
@@ -90,7 +92,7 @@ function openAppButtonCreator(buttonType) {
 		let newopenappbutton = actionbarbuttons.children[2];
 
 		let openappbutton_button = document.createElement("button");
-		openappbutton_button.setAttribute("class", "yt-spec-button-shape-next yt-spec-button-shape-next--tonal yt-spec-button-shape-next--mono yt-spec-button-shape-next--size-m yt-spec-button-shape-next--icon-leading");
+		openappbutton_button.setAttribute("class", "ytSpecButtonShapeNextHost ytSpecButtonShapeNextTonal ytSpecButtonShapeNextMono ytSpecButtonShapeNextSizeM ytSpecButtonShapeNextIconLeading ytSpecButtonShapeNextEnableBackdropFilterExperiment");
 		openappbutton_button.setAttribute("title", unsafeWindow.ytcfg.msgs.OPEN_APP);
 		openappbutton_button.setAttribute("aria-label", unsafeWindow.ytcfg.msgs.OPEN_APP);
 		openappbutton_button.setAttribute("aria-disabled", "false");
@@ -99,7 +101,7 @@ function openAppButtonCreator(buttonType) {
 
 		let openappbutton_icon = document.createElement("div");
 		openappbutton_icon.setAttribute("aria-hidden", "true");
-		openappbutton_icon.setAttribute("class", "yt-spec-button-shape-next__icon");
+		openappbutton_icon.setAttribute("class", "ytSpecButtonShapeNextIcon");
 		openappbutton_icon.innerHTML = `
 			<c3-icon fill-icon="false" style="width: 24px; height: 24px;">
 				<span class="yt-icon-shape ytSpecIconShapeHost">
@@ -114,13 +116,13 @@ function openAppButtonCreator(buttonType) {
 		document.querySelector("#injected-open-app-button > button").insertBefore(openappbutton_icon, document.querySelector("#injected-open-app-button > button").children[0]);
 
 		let openappbutton_text = document.createElement("div");
-		openappbutton_text.setAttribute("class", "yt-spec-button-shape-next__button-text-content");
+		openappbutton_text.setAttribute("class", "ytSpecButtonShapeNextButtonTextContent");
 		openappbutton_text.innerText = unsafeWindow.ytcfg.msgs.OPEN_APP;
 		document.querySelector("#injected-open-app-button > button").insertBefore(openappbutton_text, document.querySelector("#injected-open-app-button > button").children[1]);
 
 		let openappbutton_feedbackcontainer = document.createElement("yt-touch-feedback-shape");
 		openappbutton_feedbackcontainer.setAttribute("aria-hidden", "true");
-		openappbutton_feedbackcontainer.setAttribute("class", "yt-spec-touch-feedback-shape yt-spec-touch-feedback-shape--touch-response");
+		openappbutton_feedbackcontainer.setAttribute("class", "ytSpecTouchFeedbackShapeHost ytSpecTouchFeedbackShapeTouchResponse");
 		document.querySelector("#injected-open-app-button > button").insertBefore(openappbutton_feedbackcontainer, document.querySelector("#injected-open-app-button > button").children[2]);
 
 		let openappbutton_feedbackstroke = document.createElement("div");
